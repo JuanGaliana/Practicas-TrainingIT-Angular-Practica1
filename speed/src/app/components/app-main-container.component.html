@@ -1,0 +1,6 @@
+<div class="form-row">
+    <app-filter-criteria (change)="LoadCombo($event)"></app-filter-criteria>
+    <app-filter-combo [items]="items" (change)="onChange($event)"></app-filter-combo>
+    <app-buttons-filter (search)="onSearch()"></app-buttons-filter>
+</div>
+ <app-display [launches]="launches" [total]="total"></app-display>

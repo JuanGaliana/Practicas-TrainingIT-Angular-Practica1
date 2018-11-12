@@ -1,0 +1,14 @@
+<div class="btn-group btn-group-toggle" ngbRadioGroup (change)="onChange($event.target.value)">
+    <label class="btn btn-dark btn-inverse" ngbButtonLabel style="cursor: default">
+        Filtrar por:
+    </label>
+    <label class="btn-primary" ngbButtonLabel>
+        <input type="radio" ngbButton value="1"> Agencia
+    </label>
+    <label class="btn-primary" ngbButtonLabel>
+        <input type="radio" ngbButton value="2"> Estado
+    </label>
+    <label class="btn-primary" ngbButtonLabel>
+        <input type="radio" ngbButton value="3"> Mision
+    </label>
+</div>

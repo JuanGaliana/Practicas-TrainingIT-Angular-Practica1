@@ -1,0 +1,6 @@
+<div class="col form-group">
+    <select class="form-control" id="filter-combo" [(ngModel)]="selectedValue" (change)="onSelectChange()">
+        <option [ngValue]="null" [selected]="true" disabled>Seleccione...</option>
+        <option *ngFor="let item of items" [value]="item.id">{{item.name}}</option>
+    </select>
+</div>

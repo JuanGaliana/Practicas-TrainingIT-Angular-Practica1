@@ -1,0 +1,32 @@
+<div class="card" *ngIf="launches && launches.length > 0">
+  <div class="card-header">
+      <h3>Launches <span class="badge badge-pill badge-primary">{{total}}</span></h3>
+  </div>
+  <div class="card-body">
+      <table class="table" role="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Agencia</th>
+              <th scope="col">Inicio</th>
+              <th scope="col">Fin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let l of launches">
+              <td>{{l.name}}</td>
+              <td *ngIf="l.lsp">{{l.lsp.name}}</td>
+              <td *ngIf="!l.lsp" class="text-center"><span class="text-danger">N/A</span></td>
+              <td>{{l.windowstart}}</td>
+              <td>{{l.windowend}}</td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>
+<div *ngIf="!launches" class="alert alert-info">
+  Seleccione un criterio de busqueda
+</div>
+<div *ngIf="launches && launches.length === 0" class="alert alert-warning">
+  No existen resultados para ese criterio de busqueda
+</div>
