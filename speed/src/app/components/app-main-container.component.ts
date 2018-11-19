@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../store/services/api.service';
 import { Launch } from './../store/models/launch';
-import { Rocket } from './../store/models/rocket';
+import { GetAgencies } from './../store/services/criteria-store.actions';
 
 @Component({
     selector: 'app-main-container',
@@ -16,7 +16,11 @@ export class ContainerFilterComponent implements OnInit {
     total: number;
     constructor(private service: ApiService) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this.service.getAgencies();
+        this.service.getStatuses();
+        this.service.getMissions();
+    }
 
     public LoadCombo(event) {
         this.searchCriteria = typeof(event) === 'string' ? event : event.target.value;
@@ -38,14 +42,49 @@ export class ContainerFilterComponent implements OnInit {
     }
 
     private FilterData(data: Array<Launch>, search: number): Array<Launch> {
-        let dataFiltered: Array<Launch>;
+        let dataFiltered: Array<Launch> = new Array<Launch>();
         if (this.searchCriteria === '1') {
-            dataFiltered = data.filter(l => (l.lsp && l.lsp.id === search)
-            || (l.rocket && l.rocket.agencies && l.rocket.agencies.length > 0 && l.rocket.agencies.filter(m => m.id === search)));
+            dataFiltered = data.filter(l => l.lsp && l.lsp.id === search);
+            const dataRocketFiltered = [];
+            data.forEach((l) => {
+                if (l.rocket && l.rocket.agencies) {
+                    l.rocket.agencies.forEach((a) => {
+                        if (a.id === search) {
+                            dataRocketFiltered.push(l);
+                        }
+                    });
+                }
+            });
+             dataFiltered = dataFiltered.concat(dataRocketFiltered);
+             const dataMissionsFiltered = [];
+             data.forEach((l) => {
+                if (l.missions) {
+                    l.missions.forEach((m) => {
+                        if (m.agencies) {
+                            m.agencies.forEach((a) => {
+                                if (a.id === search) {
+                                    dataMissionsFiltered.push(l);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            dataFiltered = dataFiltered.concat(dataMissionsFiltered);
         } else if (this.searchCriteria === '2') {
             dataFiltered = data.filter(l => l.status === search);
         } else {
-            dataFiltered = data.filter(l => l.missions && l.missions.length > 0 && l.missions.filter(m => m.id === search));
+            // const dataMissionsFiltered = [];
+            data.forEach((l) => {
+                if (l.missions) {
+                    l.missions.forEach((m) => {
+                        if (m.type === search) {
+                            dataFiltered.push(l);
+                        }
+                    });
+                }
+            });
+            // dataFiltered = dataFiltered.concat(dataMissionsFiltered);
         }
         this.total = dataFiltered.length;
         return dataFiltered;

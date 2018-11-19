@@ -13,9 +13,7 @@ import { ButtonsFilterComponent } from './components/app-filter-buttons.componen
 import { DisplayComponent } from './components/app-display.component';
 
 import { ApiService } from './store/services/api.service';
-
-
-
+import { CriteriaStoreService } from './store/services/criteria-store.service';
 
 
 @NgModule({
@@ -34,7 +32,7 @@ import { ApiService } from './store/services/api.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, CriteriaStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

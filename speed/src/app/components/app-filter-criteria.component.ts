@@ -8,7 +8,8 @@ export class FilterCriteriaComponent implements OnInit {
     @Output() change = new EventEmitter<string>();
     constructor() { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+    }
 
     onChange(val) {
         this.change.emit(val);
