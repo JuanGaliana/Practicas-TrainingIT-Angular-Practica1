@@ -7,7 +7,6 @@
           <thead>
             <tr>
               <th scope="col">Nombre</th>
-              <th scope="col">Agencia</th>
               <th scope="col">Inicio</th>
               <th scope="col">Fin</th>
             </tr>
@@ -15,8 +14,6 @@
           <tbody>
             <tr *ngFor="let l of launches">
               <td>{{l.name}}</td>
-              <td *ngIf="l.lsp">{{l.lsp.name}}</td>
-              <td *ngIf="!l.lsp" class="text-center"><span class="text-danger">N/A</span></td>
               <td>{{l.windowstart}}</td>
               <td>{{l.windowend}}</td>
             </tr>
