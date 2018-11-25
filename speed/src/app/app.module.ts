@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+
+import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +18,10 @@ import { ButtonsFilterComponent } from './components/app-filter-buttons.componen
 import { DisplayComponent } from './components/app-display.component';
 
 import { ApiService } from './store/services/api.service';
-import { CriteriaStoreService } from './store/services/criteria-store.service';
+
+import { metaReducers, reducers } from './components/reducers';
+import { CriteriaEffects } from './components/reducers/criteria.effects';
+
 
 
 @NgModule({
@@ -30,9 +38,14 @@ import { CriteriaStoreService } from './store/services/criteria-store.service';
     FormsModule,
     NgbModule.forRoot(),
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production
+      ? StoreDevtoolsModule.instrument()
+      : [],
+    EffectsModule.forRoot([CriteriaEffects])
   ],
-  providers: [ApiService, CriteriaStoreService],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

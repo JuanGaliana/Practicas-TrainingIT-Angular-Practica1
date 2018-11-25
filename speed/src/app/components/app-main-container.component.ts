@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../store/services/api.service';
 import { Launch } from './../store/models/launch';
-import { GetAgencies } from './../store/services/criteria-store.actions';
+import { Store } from '@ngrx/store';
+import { Agencies, Statuses, Missions } from './reducers/criteria.actions';
+import { GlobalState } from './reducers';
 
 @Component({
     selector: 'app-main-container',
@@ -10,23 +12,28 @@ import { GetAgencies } from './../store/services/criteria-store.actions';
 })
 export class ContainerFilterComponent implements OnInit {
     launches: Array<Launch>;
-    items: Array<any>;
+    item: { itemList: any };
     searchCriteria: string;
     filterValueSelected: any;
     total: number;
-    constructor(private service: ApiService) { }
+    constructor(private service: ApiService, private store: Store<GlobalState>) { }
 
     ngOnInit(): void {
-        this.service.getAgencies();
-        this.service.getStatuses();
-        this.service.getMissions();
+        this.store.select(s => s.criteria).subscribe(value => {
+            console.log('ngOnInit.select.Car: ', value);
+            this.item = value;
+          });
     }
-
+    // public filter(criteria: number): Observable<any[]> {
     public LoadCombo(event) {
-        this.searchCriteria = typeof(event) === 'string' ? event : event.target.value;
-        this.service.filter(parseInt(this.searchCriteria, null)).subscribe((data) => {
-            this.items = data;
-        });
+        const criteria = typeof (event) === 'string' ? event : event.target.value;
+        if (criteria === '1') {
+            this.store.dispatch(new Agencies());
+        } else if (criteria === '2') {
+            this.store.dispatch(new Statuses());
+        } else {
+            this.store.dispatch(new Missions());
+        }
     }
 
     onChange(event): void {
@@ -55,9 +62,9 @@ export class ContainerFilterComponent implements OnInit {
                     });
                 }
             });
-             dataFiltered = dataFiltered.concat(dataRocketFiltered);
-             const dataMissionsFiltered = [];
-             data.forEach((l) => {
+            dataFiltered = dataFiltered.concat(dataRocketFiltered);
+            const dataMissionsFiltered = [];
+            data.forEach((l) => {
                 if (l.missions) {
                     l.missions.forEach((m) => {
                         if (m.agencies) {

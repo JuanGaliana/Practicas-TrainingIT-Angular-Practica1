@@ -21,7 +21,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
@@ -54,23 +53,23 @@
                 }
               ]
             },
-        "dev": {
-          "fileReplacements": [
-            {
-              "replace": "src/environments/environment.ts",
-              "with": "src/environments/environment.dev.ts"
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
-          ],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": true,
-          "extractCss": true,
-          "namedChunks": false,
-          "aot": true,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true
-        }
           }
         },
         "serve": {
@@ -150,5 +149,8 @@
       }
     }
   },
-  "defaultProject": "speed"
+  "defaultProject": "speed",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
