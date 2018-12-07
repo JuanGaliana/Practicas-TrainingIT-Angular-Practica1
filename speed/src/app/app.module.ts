@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from 'src/environments/environment';
 
@@ -21,6 +22,8 @@ import { ApiService } from './store/services/api.service';
 
 import { metaReducers, reducers } from './components/reducers';
 import { CriteriaEffects } from './components/reducers/criteria.effects';
+
+
 
 
 
@@ -43,7 +46,8 @@ import { CriteriaEffects } from './components/reducers/criteria.effects';
     !environment.production
       ? StoreDevtoolsModule.instrument()
       : [],
-    EffectsModule.forRoot([CriteriaEffects])
+    EffectsModule.forRoot([CriteriaEffects]),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

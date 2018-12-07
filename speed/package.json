@@ -1,6 +1,6 @@
 {
   "name": "speed",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Ejercicios prácticos avanzados con Angular",
   "author": {
     "name": "Alberto Basalo",
@@ -24,7 +24,9 @@
     "@angular/http": "~7.0.0",
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
+    "@angular/pwa": "^0.8.7",
     "@angular/router": "~7.0.0",
+    "@angular/service-worker": "~7.0.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@ngrx/effects": "^6.1.2",
     "bootstrap": "^4.0.0",

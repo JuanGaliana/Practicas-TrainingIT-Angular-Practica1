@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  url: 'https://angular-ittraining-practices.azurewebsites.net'
+  developerVersion: '3.0.0',
+  url: 'http://localhost:6200'
 };
